@@ -1,5 +1,8 @@
 import random
 import time
+import sys
+sys.setrecursionlimit(100000)
+
 
 # 선택 정렬: 오름차순
 def selectionSort(S) -> None:
@@ -109,11 +112,11 @@ if __name__ == '__main__':
     print(f'쉘 정렬: {finish - start:.5f} 초')
 
     start = time.time()
-    quickSort(sList, 0, len(sList) - 1)
-    finish = time.time()
-    print(f'퀵 정렬: {finish - start:.5f} 초')
-
-    start = time.time()
     mergeSort(sList)
     finish = time.time()
     print(f'병합 정렬: {finish - start:.5f} 초')
+    
+    start = time.time()
+    quickSort(sList, 0, len(sList) - 1)
+    finish = time.time()
+    print(f'퀵 정렬: {finish - start:.5f} 초')
