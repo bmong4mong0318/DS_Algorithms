@@ -12,19 +12,8 @@ using namespace std;    // C++11 이전 방법: C 스타일 난수 생성(srand�
 
 #define arrMAXSIZE 15
 
-// 기초적인 정렬 알고리즘
-// void	selectionSort(int* pArr, int num);	// 선택 정렬
-// void	bubbleSort(int* pArr, int num);		// 버블 정렬
-// void	insertionSort(int* pArr, int num);	// 삽입 정렬
-// void	shellSort(int* pArr, int num);		// 쉘 정렬
-// // void	intervalSort(int* pArr, int num, int start, int interval);
-
-// // 고급 정렬 알고리즘
-// void	quickSort(int* pArr, int* pFirst, int* pLast);	// 퀵 정렬
-// void	mergeSort(int* pArr, int* pFirst, int* pLast);	// 병합 정렬
-
-// 3) 특수 정렬 알고리즘: 계수.기수.버킷 정렬
-void  contingSort(int* pArr, int num);
+// 특수 정렬 알고리즘: 계수.기수.버킷 정렬
+void  countingSort(int* pArr, int num);
 
 void	SWAP(int* pa, int* pb);
 void	PRINT(int* pArr, int num);
@@ -48,12 +37,6 @@ int main(void)
 	cout << "정렬 전: ";
 	PRINT(arr, arrMAXSIZE);
 
-	// selectionSort(arr, arrMAXSIZE);
-	// bubbleSort(arr, arrMAXSIZE);
-	// insertionSort(arr, arrMAXSIZE);
-	// shellSort(arr, arrMAXSIZE);
-	// quickSort(arr, arr, arr + arrMAXSIZE - 1);
-	// mergeSort(arr, arr, arr + arrMAXSIZE - 1);
 	countingSort(arr, arrMAXSIZE);
 	
 	cout << "정렬 후: ";
@@ -65,22 +48,27 @@ int main(void)
 // 계수 정렬 (오름차순)
 void  countingSort(int* pArr, int num) {
 	int max = 0;
+	// copy pArr into tmp array 
 	int* tmp = pArr;
 	while (*tmp){
 		if (*tmp > max)
 			max = *tmp;
 		tmp++;
 	}
+	// init frequency array
 	int freq[max + 1];
 	for (int i = 0; i <= max; i++)
 		freq[i] = 0;
+	// check frequency of each value
 	int ans[arrMAXSIZE];
 	for (int i = 0; i < num; i++)
 		freq[pArr[i]]++;
+	// fill by frequency of value
 	int j = 0;
 	for (int i = 0; i <= max; i++)
 		while (freq[i]--)
 			ans[j++] = i;
+	// copy values into original array
 	for (int i = 0; i < num; i++)
 		pArr[i] = ans[i];
 }

@@ -41,7 +41,7 @@ int main(void)
 
 // 피보나치 수열: 재귀적 용법
 int  Fibo(int num) {
-	// 재귀 함수: 탈출 조건
+	// recursive : exit condition
 	if(num == 1 || num == 2)
 		return 1;
 	return Fibo(num - 1) + Fibo(num - 2);

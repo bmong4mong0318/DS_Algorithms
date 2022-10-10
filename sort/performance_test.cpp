@@ -7,25 +7,24 @@
 */
 
 #include <iostream>
+#include <ctime>		// clock, clock_t, CLOCKS_PER_SEC
 #include <random>       // C++ 11에서 추가
 using namespace std;    // C++11 이전 방법: C 스타일 난수 생성(srand와 rand 함수)
 
-#define arrMAXSIZE 15
+#define arrMAXSIZE 30000
 
-// 기초적인 정렬 알고리즘
+// 기초 정렬 알고리즘
 void	selectionSort(int* pArr, int num);	// 선택 정렬
 void	bubbleSort(int* pArr, int num);		// 버블 정렬
 void	insertionSort(int* pArr, int num);	// 삽입 정렬
 void	shellSort(int* pArr, int num);		// 쉘 정렬
 void	intervalSort(int* pArr, int start, int num, int interval);
 
-// // 고급 정렬 알고리즘
+// 고급 정렬 알고리즘
 void	quickSort(int* pArr, int* pFirst, int* pLast);	// 퀵 정렬
 void	mergeSort(int* pArr, int* pFirst, int* pLast);	// 병합 정렬
 
-// 3) 특수 정렬 알고리즘: 계수.기수.버킷 정렬
-// void  contingSort(int* pArr, int num);
-
+// utils
 void	SWAP(int* pa, int* pb);
 void	PRINT(int* pArr, int num);
 
@@ -42,28 +41,58 @@ int main(void)
 	random_device rd;       // 1) 시드 설정: random_device(비결정적 난수 생성기) 생성
 	mt19937	gen(rd());      // 2) 난수 생성 엔진(mt19937) 초기화
 	uniform_int_distribution<int>	dis(0, 99);   // 균등 분포 정의: 범위 지정
+	
+	clock_t		start, finish;
+	double		sec1, sec2, sec3, sec4, sec5, sec6;
+	
 	for (int i = 0; i < arrMAXSIZE; i++)
 		*(arr + i) = dis(gen);
 
-	cout << "정렬 전: ";
-	PRINT(arr, arrMAXSIZE);
+	start = clock();	// start time
+	selectionSort(arr, arrMAXSIZE);
+	finish = clock();	// end time
+	sec1 = (double)(finish - start) / CLOCKS_PER_SEC;  	// CPU time
 
-	// selectionSort(arr, arrMAXSIZE);
-	// bubbleSort(arr, arrMAXSIZE);
-	// insertionSort(arr, arrMAXSIZE);
-	// shellSort(arr, arrMAXSIZE);
-	quickSort(arr, arr, arr + arrMAXSIZE - 1);
-	// mergeSort(arr, arr, arr + arrMAXSIZE - 1);
+	start = clock();
+	bubbleSort(arr, arrMAXSIZE);
+	finish = clock();
+	sec2 = (double)(finish - start) / CLOCKS_PER_SEC;
 	
-	cout << "정렬 후: ";
-	PRINT(arr, arrMAXSIZE);
+	start = clock();
+	insertionSort(arr, arrMAXSIZE);
+	finish = clock();
+	sec3 = (double)(finish - start) / CLOCKS_PER_SEC;
+
+	start = clock();
+	shellSort(arr, arrMAXSIZE);
+	finish = clock();
+	sec4 = (double)(finish - start) / CLOCKS_PER_SEC;
+
+	start = clock();
+	quickSort(arr, arr, arr + arrMAXSIZE - 1);
+	finish = clock();
+	sec5 = (double)(finish - start) / CLOCKS_PER_SEC;
+
+	start = clock();
+	mergeSort(arr, arr, arr + arrMAXSIZE - 1);
+	finish = clock();
+	sec6 = (double)(finish - start) / CLOCKS_PER_SEC;
+	
+	cout << "선택 정렬: " << sec1 << " 초" << '\n';
+	cout << "버블 정렬: " << sec2 << " 초" << '\n';
+	cout << "삽입 정렬: " << sec3 << " 초" << '\n';
+	cout << "  쉘 정렬: " << sec4 << " 초" << '\n';
+	cout << "  퀵 정렬: " << sec5 << " 초" << '\n';
+	cout << "병합 정렬: " << sec6 << " 초" << '\n';
 
 	return 0;
 }
 
+// run-time : 1 + 2 + ... + (n-1) + n = O(n^2)
 void	selectionSort(int* pArr, int num) {
 	int smallest;
 	for (int i = 0; i < num - 1; i++) {
+		// find the smallest value
 		smallest = i;
 		for (int j = i + 1; j < num; j++){
 			if (pArr[j] < pArr[smallest])
@@ -73,32 +102,32 @@ void	selectionSort(int* pArr, int num) {
 	}
 }
 
+// run-time : 1 + 2 + ... + (n-1) + n = O(n^2)
 void	bubbleSort(int* pArr, int num) {
 	for (int i = 0; i < num - 1; i++)
 		for (int j = i + 1; j < num; j++)
+			// repeat the comparison 
+			// with the value next to it
 			if (pArr[i] > pArr[j])
 				SWAP(&pArr[i], &pArr[j]);
 }	
 
+// "The most attractive algorithm when the array is almost sorted."
+// run-time
+// best : O(n) // Worst case : O(n^2) // Average case : O(n^2)
 void	insertionSort(int* pArr, int num) {
 	int j, tmp;
 	for (int i = 1; i < num; i++){
 		j = i - 1;
 		tmp = pArr[i];
+		// untill tmp value finds its position
 		while (j >= 0 && tmp < pArr[j]){
+			// move back one space
 			pArr[j + 1] = pArr[j];
 			j--;
 		}
+		// insert tmp
 		pArr[j + 1] = tmp;
-	}
-}
-
-void	shellSort(int* pArr, int num) {
-	int interval = num;
-	while (interval >= 1){
-		interval = interval / 2;
-		for (int i = 0; i < interval; i++)
-			intervalSort(pArr, i, num, interval);
 	}
 }
 
@@ -120,6 +149,19 @@ void	intervalSort(int* pArr, int start, int num, int interval) {
 	}
 }
 
+// run-time
+// best : O(n) // Worst case : O(n^2) // Average case : O(n^(1.5))
+void	shellSort(int* pArr, int num) {
+	int interval = num;
+	while (interval >= 1){
+		// divide interval
+		interval = interval / 2;
+		for (int i = 0; i < interval; i++)
+			// do shellSort by each interval
+			intervalSort(pArr, i, num, interval);
+	}
+}
+
 int*	Partition(int* pArr, int* pFirst, int* pLast) {
 	int pivot = *pLast;
 	int i = -1;
@@ -131,6 +173,8 @@ int*	Partition(int* pArr, int* pFirst, int* pLast) {
 	return (&pArr[i]);
 }
 
+// run-time
+// best : O(nlog(n)) // Worst case : O(n^2) // Average case : O(nlog(n))
 void	quickSort(int* pArr, int* pFirst, int* pLast) {
 	// if there is over 2 value
 	 if (pFirst < pLast){
@@ -164,6 +208,8 @@ void Merge(int* pArr, int* pFirst, int* mid, int* pLast){
 		pArr[i++] = tmp[t++];
 }
 
+// run-time
+// best : O(nlog(n)) // Worst case : O(nlog(n)) // Average case : O(nlog(n))
 void	mergeSort(int* pArr, int* pFirst, int* pLast){
 	// if there is over 2 value
 	if (pFirst < pLast){

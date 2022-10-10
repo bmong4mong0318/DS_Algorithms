@@ -1,17 +1,7 @@
-'''
-    * 정렬: 알고리즘 구현
-
-    1) 기초적인 정렬 알고리즘: 선택.버블.삽입.쉘 정렬
-    2) 고급 정렬 알고리즘: 퀵.병합 정렬
-    3) 특수 정렬 알고리즘: 계수.기수.버킷 정렬
-'''
-
 import random
 import time
 
 # 선택 정렬: 오름차순
-
-start_selection = time.time()
 def selectionSort(S) -> None:
     for i in range(len(S)):
         smallest = i
@@ -19,9 +9,6 @@ def selectionSort(S) -> None:
             if S[i] > S[j]:
                 smallest = j
             S[i], S[smallest] = S[smallest], S[i]
-
-end_selection = time.time()
-select_Time = start_selection - end_selection
 
 # 버블 정렬: 오름차순
 def bubbleSort(S) -> None:
@@ -31,14 +18,12 @@ def bubbleSort(S) -> None:
             if S[j+1] < S[j]:
                 S[j+1], S[j] = S[j], S[j+1]
 
-
 # 삽입 정렬: 오름차순
 def insertionSort(S) -> None:
     for i in range(1, len(S)):
         for j in range(i, 0, -1):
             if S[j-1] > S[j]:
                 S[j-1], S[j] = S[j], S[j-1]
-
 
 # 쉘 정렬: 오름차순
 def  shellSort(S) -> None:
@@ -52,11 +37,7 @@ def  shellSort(S) -> None:
                 S[h + interval] = S[h]
                 h -= interval
             S[h + interval] = tmp
-
         interval //= 2
-
-
-# def  intervalSort(S, start:int , interval:int ) -> None:
 
 # 2) 고급 정렬 알고리즘: 퀵.병합 정렬
 # 퀵 정렬: 오름차순
@@ -103,18 +84,36 @@ def  mergeSort(S) -> None:
 
 if __name__ == '__main__':
     sList = []
-    while len(sList) <= 15:
+    while len(sList) <= 30000:
         num = random.randint(0, 99)
         sList.append(num)
 
-    print(f'정렬 전: {sList}')
+    start = time.time()
+    selectionSort(sList)
+    finish = time.time()
+    print(f'선택 정렬: {finish - start:.5f} 초')
 
-    # selectionSort(sList)
-    # bubbleSort(sList)
-    # insertionSort(sList)
-    # shellSort(sList)
-    # quickSort(sList, 0, len(sList)-1)
-    # mergeSort(sList)
-    # countingSort(sList)
+    start = time.time()
+    bubbleSort(sList)
+    finish = time.time()
+    print(f'버블 정렬: {finish - start:.5f} 초')
 
-    print(f'정렬 후: {sList}')
+    start = time.time()
+    insertionSort(sList)
+    finish = time.time()
+    print(f'삽입 정렬: {finish - start:.5f} 초')
+
+    start = time.time()
+    shellSort(sList)
+    finish = time.time()
+    print(f'쉘 정렬: {finish - start:.5f} 초')
+
+    start = time.time()
+    quickSort(sList, 0, len(sList) - 1)
+    finish = time.time()
+    print(f'퀵 정렬: {finish - start:.5f} 초')
+
+    start = time.time()
+    mergeSort(sList)
+    finish = time.time()
+    print(f'병합 정렬: {finish - start:.5f} 초')
