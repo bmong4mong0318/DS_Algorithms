@@ -87,13 +87,12 @@ inline void error(const char* message) {
 
 #include <iostream>
 using namespace std;
-
 #define	 bufferMAXSIZE	 1024
 
 int 	evalPostfix(char* str);
 void	InfixToPostfix(char* postfix, char* infix);
-int	isOperator(int op);
-int	precedence(int op);
+int		isOperator(int op);
+int		precedence(int op);
 
 int main(void)
 {
@@ -206,7 +205,7 @@ void  InfixToPostfix(char* postfix, char* infix) {
 
 // 연산자 여부를 판별한다.
 int  isOperator(int  op) {
-	return op == '+' || op == '-' || op == '*' || op == '/';
+	return (op == '+' || op == '-' || op == '*' || op == '/');
 }
 
 // 연산자 우선순위를 수치로 변환
