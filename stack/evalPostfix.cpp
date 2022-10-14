@@ -1,91 +1,5 @@
 #include <iostream>
-using namespace std;
-inline void error(const char* message);
-
-template <typename E>
-class stackNode {
-private:
-	E				data;
-	stackNode<E>*	link;
-	template <typename E> friend class LinkedStack;
-};
-
-template <typename E>
-class LinkedStack {
-private:
-	stackNode<E>* top;
-public:
-	LinkedStack();
-	~LinkedStack();
-	stackNode<E>* makeStackNode(const int& num) const;
-	void		push(const E& e);
-	E			pop(void);
-	E			peek(void) const;
-	bool		isEmpty(void) const;
-	// bool	isFull(void) const;
-	void		printStack(void) const;
-};
-
-template <typename E>
-LinkedStack<E>::LinkedStack() : top(NULL) {}
-
-template <typename E>
-LinkedStack<E>::~LinkedStack() {}
-
-template <typename E>
-stackNode<E>* LinkedStack<E>::makeStackNode(const int& num) const {
-	stackNode<E>* nNode = new stackNode<int>;
-	nNode->data = num;
-	nNode->link = NULL;
-	return nNode;
-}
-
-template <typename E>
-void	LinkedStack<E>::push(const E& e) {
-	stackNode<E>* newSNode = makeStackNode(e);
-	newSNode->link = top;
-	top = newSNode;
-}
-
-template <typename E>
-E	LinkedStack<E>::pop(void) {
-	if (isEmpty()) error("스택 공백 에러");	// throw "ERROR::STACK IS EMPTY";
-	stackNode<int>* temp = top;
-	E data = temp->data;
-	top = temp->link;
-	free(temp);
-	return  data;
-}
-
-template <typename E>
-E	LinkedStack<E>::peek(void) const {
-	if (isEmpty()) error("스택 공백 에러");	// throw "ERROR::STACK IS EMPTY";
-	return  top->data;
-}
-
-template <typename E>
-bool	LinkedStack<E>::isEmpty(void) const {
-	return top == NULL;
-}
-
-template <typename E>
-void	LinkedStack<E>::printStack(void) const {
-	stackNode<E>* temp = top;
-	cout << "\n STACK [";
-	while (temp) {
-		cout.width(3);
-		cout << temp->data;
-		temp = temp->link;
-	}
-	cout << " ]" << endl;
-}
-
-inline void error(const char* message) {
-	cout << message;
-	exit(100);
-}
-
-#include <iostream>
+#include "linkedStack.cpp"
 using namespace std;
 #define	 bufferMAXSIZE	 1024
 
@@ -170,8 +84,8 @@ void  InfixToPostfix(char* postfix, char* infix) {
 		// 3) 연산자인 경우...
 		else if (isOperator(*infix)) {
 			while (!s.isEmpty() &&
-				precedence(s.peek()) >= precedence(*infix))
-			{	// 자신보다 높은 우선순위의 연산자는 스택에서 pop
+				precedence(s.peek()) >= precedence(*infix)) {
+				// 자신보다 높은 우선순위의 연산자는 스택에서 pop
 				*postfix++ = s.pop();
 				*postfix++ = ' ';
 			}
