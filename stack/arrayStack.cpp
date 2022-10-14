@@ -6,8 +6,8 @@ inline void error(const char* message);
 template <typename E>
 class arrayStack {
 private:
-	E	  stack[stackMAXSIZE];
-	int	top;
+	E	  	stack[stackMAXSIZE];
+	int		top;
 public:
 	arrayStack();
 	~arrayStack();
@@ -19,54 +19,52 @@ public:
 	void	printStack(void) const;
 };
 
-inline void error(const char* message) {
-	cout << message;
-	exit(100);
-}
+template <typename E>
+arrayStack<E>::arrayStack() : top(-1) { }
 
 template <typename E>
-arrayStack<E>::arrayStack() {
-
-}
-
-template <typename E>
-arrayStack<E>::~arrayStack() {
-
-}
+arrayStack<E>::~arrayStack() { }
 
 template <typename E>
 void	arrayStack<E>::push(const E& e) {
-	if (isFull())
-		return;
-	stack[top] = e
+	if (isFull()) error("스택 포화 에러"); // throw "ERROR::STACK IS FULL";
+	stack[++top] = e;
 }
 
 template <typename E>
 E	   arrayStack<E>::pop(void) {
-	if (isEmpty)	
-		return EOF;
-	return e->stack[e->top--];
+	if (isEmpty()) error("스택 공백 에러");	// throw "ERROR::STACK IS EMPTY";
+	return stack[top--];
 }
 
 template <typename E>
 E	    arrayStack<E>::peek(void) const {
-	if (isEmpty)
-		return EOF;
-	return e->stack[e->top];
+	if (isEmpty()) error("스택 공백 에러");	// throw "ERROR::STACK IS EMPTY";
+	return stack[top];
 }
 
 template <typename E>
 bool	arrayStack<E>::isEmpty(void) const {
-
+	return (top == -1);
 }
 template <typename E>
 bool	arrayStack<E>::isFull(void) const {
-
+	return (top == stackMAXSIZE);
 }
 
 template <typename E>
 void	arrayStack<E>::printStack(void) const {
+	cout << "\n STACK [";
+	for (int i = 0; i <= top; i++){
+		cout.width(3);
+		cout << stack[i];
+	}
+	cout << " ]" << endl;
+}
 
+inline void error(const char* message) {
+	cout << message;
+	exit(100);
 }
 
 int main(void)

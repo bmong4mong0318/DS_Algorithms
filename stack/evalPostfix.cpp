@@ -5,7 +5,7 @@ inline void error(const char* message);
 template <typename E>
 class stackNode {
 private:
-	E			data;
+	E				data;
 	stackNode<E>*	link;
 	template <typename E> friend class LinkedStack;
 };
@@ -19,8 +19,8 @@ public:
 	~LinkedStack();
 	stackNode<E>* makeStackNode(const int& num) const;
 	void		push(const E& e);
-	E		pop(void);
-	E		peek(void) const;
+	E			pop(void);
+	E			peek(void) const;
 	bool		isEmpty(void) const;
 	// bool	isFull(void) const;
 	void		printStack(void) const;

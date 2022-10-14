@@ -1,8 +1,6 @@
 /*	
 	이진 탐색: 알고리즘 구현
-	
-	1) 재귀적 용법
-	2) 비재귀적 용법
+	비재귀적 용법
 */
 #include <iostream>
 
@@ -33,7 +31,7 @@ int main(void)
 	return 0;
 }
 
-
+// 이진 탐색: 비재귀적 용법
 int*	binarySearch(int* pArr, int *first, int *last, int key) {
 	
 	int *mid;

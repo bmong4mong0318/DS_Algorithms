@@ -20,8 +20,8 @@ public:
 	~LinkedStack();
 	stackNode<E>* makeStackNode(const int& num) const;
 	void		push(const E& e);
-	E		pop(void);
-	E		peek(void) const;
+	E			pop(void);
+	E			peek(void) const;
 	bool		isEmpty(void) const;
 	// bool	isFull(void) const;
 	void		printStack(void) const;
