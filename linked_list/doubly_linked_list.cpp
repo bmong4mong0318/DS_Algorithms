@@ -10,7 +10,6 @@ private:
 	friend class DLinkedList;
 };
 
-
 class DLinkedList {
 private:
 	DNode*	head;	// first node;
@@ -41,7 +40,7 @@ bool DLinkedList::isEmpty() const {
 }
 
 // 탐색 : 노드의 총 개수(count)
-int DLinkedList::countDNode()	const {
+int DLinkedList::countDNode() const {
 	if (isEmpty()) return (0);
 	int		count = 0;
 	DNode* rNode = head;
@@ -82,7 +81,7 @@ void DLinkedList::addRear(const int& e) {
 	else {
 		DNode* rNode = rearDNode();
 		rNode->next = nNode;
-		nNode->next = rNode;
+		nNode->prev = rNode;
 	}
 }
 
@@ -118,10 +117,10 @@ void DLinkedList::printDLinkedList() {
 // 리스트의 전체 노드 출력 (역방향)
 void DLinkedList::revPrintDLinkedList() {
 	if (isEmpty()) return;
-	DNode* temp = head;
+	DNode* temp = rearDNode();
 	while (temp) {
 		cout.width(3);
-		cout << temp->data << "->>";
+		cout << temp->data << "<<-";
 		temp = temp->prev;
 	}
 	cout << "NULL" << endl;
@@ -136,7 +135,6 @@ int main(void)
 		cout << "임의의 정수 입력(종료: 0): ";
 		cin >> num;
 		if (num == 0) break ;
-
 		// 맨 마지막 노드로 삽입
 		sList.addRear(num);
 	}
@@ -148,8 +146,8 @@ int main(void)
 	}
 	printf("\n ### 입력된 데이터 ### \n\n");
 	sList.printDLinkedList();
-
+	sList.revPrintDLinkedList();
 	// 소멸자: 전체 원소 삭제
-	// sList.~DLinkedList();
+	sList.~DLinkedList();
 	return (0);
 }

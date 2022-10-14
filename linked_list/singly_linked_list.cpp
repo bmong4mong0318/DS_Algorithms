@@ -27,7 +27,6 @@ public:
 	void	printSLinkedList();				// 리스트의 전체 노드 출력
 };
 
-
 // 생성자
 SLinkedList::SLinkedList()
 	: head(NULL) {}
