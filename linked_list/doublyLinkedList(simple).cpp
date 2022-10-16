@@ -1,3 +1,9 @@
+/*
+	이중 연결 리스트: 알고리즘 구현
+		- DNode		: 노드(data, prev, next)
+		- DLinkedList	: head, tail, count
+*/
+
 #include <iostream>
 using namespace std;
 
@@ -29,7 +35,6 @@ public:
 	void	revPrintDLinkedList();			// 리스트의 전체 노드 출력 (역방향)
 };
 
-
 // 생성자
 DLinkedList::DLinkedList()
 	: head(NULL) {}
@@ -56,7 +61,7 @@ DNode* DLinkedList::frontDNode() const {
 	return (head);
 }
 
-// 탐색 : 맨 마지막 노드
+// 탐색 : 맨 마지막 노드 (tail)
 DNode* DLinkedList::rearDNode() const {
 	if (isEmpty()) return (NULL);
 	DNode* rNode = head;
@@ -120,12 +125,11 @@ void DLinkedList::revPrintDLinkedList() {
 	DNode* temp = rearDNode();
 	while (temp) {
 		cout.width(3);
-		cout << temp->data << "<<-";
+		cout << temp->data << "->>";
 		temp = temp->prev;
 	}
 	cout << "NULL" << endl;
 }
-
 
 int main(void)
 {
@@ -139,7 +143,7 @@ int main(void)
 		sList.addRear(num);
 	}
 
-	//전체 원소 출력
+	// 전체 원소 출력
 	if (sList.isEmpty()) {
 		cout << "입력된 데이터가 없습니다..." << endl;
 		return (0);		// sList.~DLinkedList();
@@ -147,7 +151,8 @@ int main(void)
 	printf("\n ### 입력된 데이터 ### \n\n");
 	sList.printDLinkedList();
 	sList.revPrintDLinkedList();
+
 	// 소멸자: 전체 원소 삭제
-	sList.~DLinkedList();
+	// sList.~DLinkedList();
 	return (0);
 }

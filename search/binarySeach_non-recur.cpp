@@ -23,7 +23,7 @@ int main(void)
 		cin >> key;
 		if (key == 0)
 			break;
-
+			
 		int*	index = binarySearch(arr, arr, arr + arrMAXSIZE - 1, key);
 		if (index == NULL)	cout << "없다고!!!" << endl;
 		else	cout << "검색 데이터: " << *index << ", 위치(index): " << index - arr + 1 << endl;

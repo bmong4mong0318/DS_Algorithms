@@ -1,11 +1,17 @@
+/*
+	단순 연결 리스트: 알고리즘 구현
+		- SNode 	: 노드(data, next)
+		- SLinkedList	: head, tail, count
+*/
+
 #include <iostream>
 using namespace std;
 
-// node : data, link
+// node : data, next
 class SNode {
 private:
-	int data;
-	SNode* next;
+	int 	data;
+	SNode* 	next;
 	friend class SLinkedList;
 };
 

@@ -1,7 +1,98 @@
+/*
+	스택 활용: 후위 표기법을 이용한 수식 계산
+		- evalPostfix		: 후위 표기법으로 수식 계산
+		- InfixToPostfix	: 중위 표기법을 후위 표기법으로 변환
+			중위 표기: (A + B) - C
+			후위 표기: A B + C -
+			전위 표기: - + A B C
+*/
+
 #include <iostream>
-#include "linkedStack.cpp"
 using namespace std;
+inline void error(const char* message);
 #define	 bufferMAXSIZE	 1024
+
+template <typename E>
+class stackNode {
+private:
+	E		data;
+	stackNode<E>*	link;
+	template <typename E> friend class LinkedStack;
+};
+
+template <typename E>
+class LinkedStack {
+private:
+	stackNode<E>* top;
+public:
+	LinkedStack();
+	~LinkedStack();
+	stackNode<E>* 	makeStackNode(const int& num) const;
+	void		push(const E& e);
+	E		pop(void);
+	E		peek(void) const;
+	bool		isEmpty(void) const;
+	void		printStack(void) const;
+};
+
+template <typename E>
+LinkedStack<E>::LinkedStack() : top(NULL) {}
+
+template <typename E>
+LinkedStack<E>::~LinkedStack() {}
+
+template <typename E>
+stackNode<E>* LinkedStack<E>::makeStackNode(const int& num) const {
+	stackNode<E>* nNode = new stackNode<int>;
+	nNode->data = num;
+	nNode->link = NULL;
+	return nNode;
+}
+
+template <typename E>
+void	LinkedStack<E>::push(const E& e) {
+	stackNode<E>* newSNode = makeStackNode(e);
+	newSNode->link = top;
+	top = newSNode;
+}
+
+template <typename E>
+E	LinkedStack<E>::pop(void) {
+	if (isEmpty()) error("스택 공백 에러");	// throw "ERROR::STACK IS EMPTY";
+	stackNode<int>* temp = top;
+	E data = temp->data;
+	top = temp->link;
+	free(temp);
+	return  data;
+}
+
+template <typename E>
+E	LinkedStack<E>::peek(void) const {
+	if (isEmpty()) error("스택 공백 에러");	// throw "ERROR::STACK IS EMPTY";
+	return  top->data;
+}
+
+template <typename E>
+bool	LinkedStack<E>::isEmpty(void) const {
+	return top == NULL;
+}
+
+template <typename E>
+void	LinkedStack<E>::printStack(void) const {
+	stackNode<E>* temp = top;
+	cout << "\n STACK [";
+	while (temp) {
+		cout.width(3);
+		cout << temp->data;
+		temp = temp->link;
+	}
+	cout << " ]" << endl;
+}
+
+inline void error(const char* message) {
+	cout << message;
+	exit(100);
+}
 
 int 	evalPostfix(char* str);
 void	InfixToPostfix(char* postfix, char* infix);

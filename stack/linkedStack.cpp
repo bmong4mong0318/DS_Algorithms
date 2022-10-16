@@ -1,3 +1,12 @@
+/*
+	스택: 알고리즘 구현 -- 연결자료구조(단순연결리스트)
+	파일명: linkedStack.cpp
+		- 스택 생성 및 삭제   : LinkedStack, ~LinkedStack
+		- 원소 삽입.삭제.확인 : push, pop, peek
+		- 빈 스택 여부 판단   : isEmpty
+		- 전체 원소 출력      : printStack
+*/
+
 #include <iostream>
 #define stackMAXSIZE 100
 using namespace std;

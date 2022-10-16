@@ -22,9 +22,9 @@ int main(void)
 	while(true) {
 		cout << "검색 데이터 입력(검색 종료: 0): ";
 		cin >> key;
-		if(key == 0)
+		if(key == 0) 
 			break;
-
+			
 		int	index = binarySearch(arr, 0, arrMAXSIZE - 1, key);
 		if (index == EOF)	cout << "없다고!!!" << endl;
 		else	cout << "검색 데이터: " << arr[index] << ", 위치(index): " << index + 1 << endl;

@@ -1,3 +1,8 @@
+/*
+	스택: 알고리즘 구현 -- 순차자료구조(배열)
+		- arrayStack : stack, top
+*/
+
 #include <iostream>
 #define stackMAXSIZE 100
 using namespace std;
