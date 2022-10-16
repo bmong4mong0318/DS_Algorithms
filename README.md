@@ -38,6 +38,10 @@
 <style>
 .ds {
     display: flex;
+<<<<<<< HEAD
     justify-content: space-between;
+=======
+    justify-content: space-between; 
+>>>>>>> ed646ce1e443423df78c1669f0b019ee17d7743e
 }
 </style>
