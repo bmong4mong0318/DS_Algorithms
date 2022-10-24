@@ -17,7 +17,7 @@ class stackNode {
 private:
 	E			data;
 	stackNode<E>*	link;
-	template <typename E> friend class LinkedStack;
+	template <typename T> friend class LinkedStack;
 };
 
 template <typename E>
