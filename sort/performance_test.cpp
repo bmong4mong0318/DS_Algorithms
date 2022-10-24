@@ -94,7 +94,7 @@ void	selectionSort(int* pArr, int num) {
 	for (int i = 0; i < num - 1; i++) {
 		// find the smallest value
 		smallest = i;
-		for (int j = i + 1; j < num; j++){
+		for (int j = i + 1; j < num; j++) {
 			if (pArr[j] < pArr[smallest])
 				smallest = j;
 			SWAP(&pArr[i], &pArr[smallest]);
@@ -122,7 +122,7 @@ void	insertionSort(int* pArr, int num) {
 		tmp = pArr[i];
 		// untill tmp value finds its position
 		while (j >= 0 && tmp < pArr[j]){
-			// move back one space
+			// move one space aside
 			pArr[j + 1] = pArr[j];
 			j--;
 		}

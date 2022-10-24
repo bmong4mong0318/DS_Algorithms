@@ -47,9 +47,11 @@ int	binarySearch(int* pArr, int first, int last, int key) {
 	return index;
 }
 
-void	PRINT(int* pArr, int num) {
-	for (int i=0; i<num; i++)
-		printf("%3d", *(pArr+i) );
-	printf("\n");
+void  PRINT(int* pArr, int num) {
+	for (int i = 0; i < num; i++) {
+		cout.width(3);
+		cout << *(pArr + i);
+	}
+	cout << endl;
 	return;
 }
