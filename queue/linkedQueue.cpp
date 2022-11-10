@@ -25,7 +25,7 @@ class SNode {
 private:
 	E		__data;
 	SNode<E>*	__link;
-	template <typename E> friend class LinkedQueue;
+	template <typename T> friend class LinkedQueue;
 public:
 	SNode();
 };
@@ -126,5 +126,36 @@ void	LinkedQueue<E>::printQueue(void) const {
 		temp = temp->__link;
 	}
 	cout << " ]" << endl;
+}
+
+int main(void)
+{
+	int			num, choice;
+	LinkedQueue<int>	LQ;
+
+	while (true) {
+		system("cls");
+		cout << "\n ### 큐 구현: 단순 연결 리스트 ### \n" << endl;
+		cout << "1) 데이터 삽입(push, enQueue)" << endl;
+		cout << "2) 데이터 삭제(pop, deQueue)" << endl;
+		cout << "3) 전체 출력" << endl;
+		cout << "4) 프로그램 종료 \n" << endl;
+		cout << "메뉴 선택: ";
+		cin >> choice;
+
+		switch (choice) {
+			case 1: cout << "\n삽입 할 데이터 입력: ";
+				cin >> num;		LQ.push(num);	break;
+			case 2: cout << "삭제 된 데이터: " << LQ.front() << endl;
+				LQ.pop();		break;
+			case 3: LQ.printQueue();
+				break;
+			case 4: cout << "프로그램 종료..." << endl;
+				return 0;
+			default: cout << "잘못 선택 하셨습니다." << endl;
+		}
+		system("pause");
+	}
+	return 0;	// s.~LinkedQueue();
 }
 
