@@ -30,7 +30,7 @@ void	PRINT(int* pArr, int num);
 
 int main(void)
 {
-  int	arr[arrMAXSIZE] = { 0 };
+	int	arr[arrMAXSIZE] = { 0 };
 
 	/* C 스타일 난수 생성(srand와 rand 함수)
 		srand(static_cast<unsigned int>(time(nullptr)));
@@ -177,14 +177,14 @@ int*	Partition(int* pArr, int* pFirst, int* pLast) {
 // best : O(nlog(n)) // Worst case : O(n^2) // Average case : O(nlog(n))
 void	quickSort(int* pArr, int* pFirst, int* pLast) {
 	// if there is over 2 value
-	 if (pFirst < pLast){
+	if (pFirst < pLast){
 		// get the mid
 		int* mid = Partition(pArr, pFirst, pLast);
 		int move = mid - pFirst + 1;
 		// Split into 2 groups based on the center
 		quickSort(pArr, pFirst, mid - 1);
 		quickSort(pArr + move, mid + 1, pLast);
-	 }
+	}
 }
 
 int tmp[arrMAXSIZE * 2];
