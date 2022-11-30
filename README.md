@@ -1,8 +1,5 @@
 # DS_Algorithms
 
-- organize `Data Structure and Algorithms`
-- lets get used to _markdown_ grammar
-
 <br>
 
 <div class="ds">
