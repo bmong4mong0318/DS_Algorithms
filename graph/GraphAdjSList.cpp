@@ -121,6 +121,7 @@ void	GraphType::DFSAdjSList(int  vertex){
 			if(!pVisited[w->__vertex]){
 				S.push(w->__vertex);
 				pVisited[w->__vertex] = true; // 정점 방문
+				char ch = w->__vertex + 65;
 				cout.width(3); cout << ch;
 				v = w->__vertex;
 				w = __adjSList[v];
@@ -159,7 +160,7 @@ void	GraphType::BFSAdjSList(int  vertex){
 				char ch = w->__vertex + 65;
 				cout.width(3); cout << ch;
 			}
-			w = w->__link;
+			else w = w->__link;
 		}
 	}
 	cout << endl;
